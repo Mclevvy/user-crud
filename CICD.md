@@ -39,6 +39,12 @@ cd C:\actions-runner
 
 Wait for `Connected to GitHub` / `Listening for Jobs`, and confirm the runner shows **Idle** in Settings → Actions → Runners. Keep that window open while the workflow runs.
 
+**Prerequisite that bites on a fresh Windows box:** the runner wraps every `run:` step in a temp `.ps1` and dot-sources it, so `Restricted` execution policy fails every step with `cannot be loaded because running scripts is disabled`. One-time fix (no admin needed):
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
 Labels used by the deploy job: `self-hosted`, `Windows`, `X64` (default labels, no extra config).
 
 ## Verifying
