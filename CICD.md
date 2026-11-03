@@ -22,7 +22,9 @@ git push -u origin main
 
 ### 2. Self-hosted runner
 
-GitHub → repository → **Settings → Actions → Runners → New self-hosted runner → Windows / x64**, then:
+GitHub → repository → **Settings → Actions → Runners → New self-hosted runner → Windows / x64**.
+
+The runner package is already extracted at `C:\actions-runner` (v2.338.2), so skip GitHub's download step and go straight to registering:
 
 ```powershell
 cd C:\actions-runner
