@@ -1,17 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Book Inventory</ion-title>
+  </ion-toolbar>
+
+  <!-- Extra component #3: ion-searchbar -->
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Search title, author, genre"
+      [value]="searchTerm"
+      (ionInput)="onSearchChange($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+
+  <!-- Extra component #4: ion-segment -->
+  <ion-toolbar>
+    <ion-segment [value]="segmentFilter" (ionChange)="onSegmentChange($event)">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="inStock">
+        <ion-label>In Stock</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="outOfStock">
+        <ion-label>Out of Stock</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Extra component #5: ion-refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+    <ion-item-sliding *ngFor="let book of filteredBooks" #slidingItem>
+      <ion-item>
+        <ion-label>
+          <h2>{{ book.title }}</h2>
+          <p>{{ book.author }} • {{ book.genre }}</p>
+          <p>₱{{ book.price }} — Qty: {{ book.quantity }}</p>
+        </ion-label>
+        <ion-badge [color]="book.quantity > 0 ? 'success' : 'danger'" slot="end">
+          {{ book.quantity > 0 ? 'In Stock' : 'Out' }}
+        </ion-badge>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="updateBook(book, slidingItem)">
+          Edit
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteBook(book, slidingItem)">
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-text *ngIf="filteredBooks.length === 0" color="medium">
+    <p class="ion-padding-start">No books match your filters yet.</p>
+  </ion-text>
+
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    [duration]="2000"
+    (didDismiss)="showToast = false">
+  </ion-toast>
 </ion-content>

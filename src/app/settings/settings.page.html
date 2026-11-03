@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="settings-page ion-padding">
+  <div class="hero-card">
+    <div class="hero-icon">
+      <ion-icon name="settings"></ion-icon>
+    </div>
+    <div>
+      <h2>Inventory preferences</h2>
+      <p>Manage the way your library works.</p>
+    </div>
+  </div>
+
+  <ion-list inset="true" class="settings-list">
+    <ion-item lines="none">
+      <ion-icon slot="start" name="notifications"></ion-icon>
+      <ion-label>
+        <h3>Notifications</h3>
+        <p>Keep me updated on stock changes</p>
+      </ion-label>
+      <ion-toggle [(ngModel)]="notificationsEnabled" slot="end"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label>
+        <h3>Dark mode</h3>
+        <p>Use the elegant dark interface</p>
+      </ion-label>
+      <ion-toggle [(ngModel)]="darkMode" slot="end"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon slot="start" name="cloud-upload"></ion-icon>
+      <ion-label>
+        <h3>Auto sync</h3>
+        <p>Sync inventory changes automatically</p>
+      </ion-label>
+      <ion-toggle [(ngModel)]="autoSync" slot="end"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none" detail="true">
+      <ion-icon slot="start" name="information-circle"></ion-icon>
+      <ion-label>
+        <h3>About this app</h3>
+        <p>Version 1.0 • Book catalog</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
